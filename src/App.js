@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
       <Switch>
-        <Route path='/orders-list' component={OrderList} />
+        <Route path='/' component={OrderList} />
       </Switch>
   );
 }
