@@ -1,38 +1,32 @@
-import {Order} from "../common/types";
 import {orderHostname} from "../common/config";
-
-const products = [{
-    id: '1231',
-    name: 'Test',
-    price: '5.00'
-}];
+import {getAuthInfo} from "../modules/auth/auth";
 
 const orderApiPath = `${orderHostname}/api/orders`;
-
-// export async function getListOrders(): Promise<any> {
-/*    const response = await fetch(`${orderApiPath}/orders`, {method: 'GET'});
-    const json = await response.json();
-    return json;
-}*/
+const orderHeaders = Object.assign({'Content-Type': 'application/json'}, getAuthInfo());
 
 export const getListOrders = async (): Promise<any> => {
-    const response = await fetch(`${orderApiPath}/orders`, {method: 'GET'});
+    const response = await fetch(`${orderApiPath}/orders`, {
+        method: 'GET',
+        headers: orderHeaders
+    });
     const json = await response.json();
     return json;
-}
+};
 
 export async function getOrderDetails(orderId: string): Promise<any> {
-    const response = await fetch(`${orderApiPath}/orders/${orderId}`, {method: 'GET'});
+    const response = await fetch(`${orderApiPath}/orders/${orderId}`, {
+        method: 'GET',
+        headers: orderHeaders,
+    });
     const json = await response.json();
     return json;
 }
 
 export async function createOrder(data: any): Promise<any> {
-    console.log(data)
     const response = await fetch(`${orderApiPath}/orders`, {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: {'Content-Type': 'application/json'}
+        headers: orderHeaders
     });
     const json = await response.json();
     return json;
@@ -41,6 +35,7 @@ export async function createOrder(data: any): Promise<any> {
 export async function cancelOrder(orderId: string): Promise<any> {
     const response = await fetch(`${orderApiPath}/orders/${orderId}`, {
         method: 'DELETE',
+        headers: orderHeaders
     });
     const json = await response.json();
     return json;
