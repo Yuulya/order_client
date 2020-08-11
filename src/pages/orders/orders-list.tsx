@@ -7,8 +7,24 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Alert from 'react-bootstrap/Alert'
+import Badge from 'react-bootstrap/Badge'
+
 import { useState } from 'react';
 import {useAllOrderQuery, useCancelOrderQuery, useCreateOrderQuery, useGetOrderInformationQuery} from "./order.queries";
+
+function statusFormatter(cell: any, row: any) {
+    if (cell === 'CONFIRMED') {
+        return (<Badge variant="warning">{cell}</Badge>)
+    } else if (cell === 'DELIVERED') {
+        return (<Badge variant="success">{cell}</Badge>)
+    } else if (cell === 'CANCELED') {
+        return (<Badge variant="danger">{cell}</Badge>)
+    } else if (cell === 'CREATED') {
+        return (<Badge variant="primary">{cell}</Badge>)
+    } else {
+        return (<Badge variant="secondary">{cell}</Badge>)
+    }
+}
 
 const columns = [
     {
@@ -23,7 +39,8 @@ const columns = [
     },
     {
         dataField: 'status',
-        text: 'Status'
+        text: 'Status',
+        formatter: statusFormatter
     }];
 
 export const OrderList = () => {
