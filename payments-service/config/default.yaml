@@ -1,0 +1,13 @@
+server:
+  host: 127.0.0.1
+  port: 3045
+
+service:
+  baseUrl: /api/payments
+
+
+externalServices:
+  paymentService:
+
+mongodb:
+  uri: mongodb://127.0.0.1:27017/payments-service

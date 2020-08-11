@@ -1,0 +1,23 @@
+.DS_Store
+
+# dependencies
+/node_modules
+
+# IDE
+/.idea
+/.vscode
+
+# misc
+npm-debug.log
+newrelic_agent.log
+
+# tests
+/test
+/coverage
+/.nyc_output
+
+# dist
+/dist
+.env
+helm/**/*.dec
+swagger.json
