@@ -10,8 +10,8 @@ import Alert from 'react-bootstrap/Alert'
 import { useState } from 'react';
 import {useAllOrderQuery, useCancelOrderQuery, useCreateOrderQuery, useGetOrderInformationQuery} from "./order.queries";
 
-const columns = [{
-
+const columns = [
+    {
         dataField: '_id',
         text: 'Order ID'
     }, {
@@ -40,9 +40,9 @@ export const OrderList = () => {
     const handleCreateOrderModal = () => {
         createOrderQuery({
             details: {item}
+        }).then(r => {
+            closeCreateOrderModal();
         });
-
-        closeCreateOrderModal();
     };
 
     const handleChange = (event: any) => {

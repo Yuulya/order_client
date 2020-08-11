@@ -1,6 +1,7 @@
-import { useQuery, useMutation } from 'react-query'
+import { useQuery, useMutation, queryCache } from 'react-query'
 import {cancelOrder, createOrder, getListOrders, getOrderDetails} from "../../services/api-order.service";
 
+// get all orders query
 export const useAllOrderQuery = () => {
     const filter = {};
     return useQuery(
@@ -8,9 +9,14 @@ export const useAllOrderQuery = () => {
         () => {
             return getListOrders()
         },
+        {
+            // Refetch the data every second
+            refetchInterval: 2000,
+        }
     );
 };
 
+// create order query
 export const useCreateOrderQuery = () => {
     return useMutation(
         (data: {
@@ -18,6 +24,10 @@ export const useCreateOrderQuery = () => {
         }) => {
             return createOrder({details: data.details})
         },
+        {
+            // invalidate and get newest orders
+            onSuccess: () => queryCache.invalidateQueries('allOrders'),
+        }
     );
 };
 
